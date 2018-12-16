@@ -63,10 +63,35 @@ bookRouter.route('/Books/:bookId')
                 req.book.author = req.body.author;
                 req.book.genre = req.body.genre;
                 req.book.read = req.body.read;
-                req.book.save();
+                req.book.save(err => {
+                    if (err){
+                        res.status(500).send(err);
+                    } else {
+                        res.json(req.book);
+                    }
+                });
                 res.json(req.book);
     })
-    .patch();
+    .patch((req, res) => {
+        // if(req.body.title)
+        // {
+        //     req.book.title = req.body.title;
+        // }
+        if(req.body._id)
+            delete req.body._id;
+        for (var p in req.body)
+        {
+            req.book[p] = req.book[p];
+        }
+
+        req.book.save(err => {
+            if (err){
+                res.status(500).send(err);
+            } else {
+                res.json(req.book);
+            }
+        });
+    });
     return bookRouter;
 };
 
