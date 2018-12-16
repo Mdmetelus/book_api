@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-nodemon = require('gulp-nodemon');
+    nodemon = require('gulp-nodemon');
 
 gulp.task('default', function() {
     nodemon({
@@ -8,9 +8,9 @@ gulp.task('default', function() {
         env: {
             PORT:8000
         },
-        ignore: ['./node_module/**']
+        ignore: ['./node_modules/**']
     })
     .on('restart', function(){
-        console.log('We have Just Restarted');
+        console.log('We Have Just Restarted');
     });
 });

@@ -1,6 +1,12 @@
-var express = require('express');
+var express = require('express'),
+    mongoose = require('mongoose');
 
 var app = express();
+
+var db = mongoose.connect('mongodb://localhost/booksAPI');
+
+var Book = require('./models/bookModel');
+
 
 var port = process.env.PORT || 3000;
 
@@ -9,7 +15,6 @@ var bookRouter= express.Router();
 bookRouter.route('/Books')
     .get((req,res) => {
         var responseJson = {hello: "This is my API"};
-
         //sends back a json object.
         res.json(responseJson);
     });
@@ -23,5 +28,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('Gulp is Running this App on PORT: ' + port );
-})
+    console.log('Gulp is Running This App on PORT: ' + PORT );
+});
