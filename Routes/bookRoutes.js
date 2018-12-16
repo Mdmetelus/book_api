@@ -92,6 +92,15 @@ bookRouter.route('/Books/:bookId')
             }
         });
     });
+    .delete(function(req, res) {
+        req.bok.remove( (err) => {
+            if(err) {
+                res.status(500).send(err);
+            } else {
+                res.status(204).send('Removed');
+            }
+        });
+    })
     return bookRouter;
 };
 
