@@ -1,5 +1,6 @@
 var express = require('express'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser');
 
 var app = express();
 
@@ -9,6 +10,10 @@ var Book = require('./models/bookModel');
 
 
 var port = process.env.PORT || 3000;
+
+app.use('/api', bookRouter);
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyparser.json());
 
 var bookRouter= express.Router();
 
@@ -33,6 +38,14 @@ bookRouter.route('/Books')
     });
 
 bookRouter.route('/Books/:bookId')
+    .post(function(req,res){
+        var book = new Book(req.body);
+
+        console.log(book);
+        book.save();
+        res.status(201).send(book);
+        bodyParser
+    })
     .get((req,res) => {
         
         Book.findById(req.params.bookId, function(err, book){
@@ -44,7 +57,7 @@ bookRouter.route('/Books/:bookId')
         });
     });
 
-app.use('/api', bookRouter);
+
 
 
 //sends back a string of text
