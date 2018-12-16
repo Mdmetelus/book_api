@@ -17,7 +17,8 @@ app.use(bodyparser.json());
 
 bookrouter = require('./Routes/bookRoutes')(Book);
 
-
+app.use('/api/books', bookRouter);
+app.use('/api/books',authorRouter);
 
 
 //sends back a string of text
