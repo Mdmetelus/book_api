@@ -3,25 +3,11 @@ var express = require('express');
 var routes = function(Book) {
     var bookRouter= express.Router();
 
+var bookController = require('../Controllers/bookController')
+
 bookRouter.route('/Books')
-    .get((req,res) => {
-        var query = {};
-            if(req.query.genre)
-            {
-                query.genre = req.query.genre;
-            }
-        Book.find(function(err, books){
-            if (err){
-                console.log(err);
-                res.status(500).send(err);
-            } else {
-                res.json(books);
-            }
-        })
-        // var responseJson = {hello: "This is my API"};
-        //sends back a json object.
-        // res.json(responseJson);
-    });
+var bookController = require('../ontrollers/bookController')
+    .get(bookController.post);
 bookRouter.use('/:bookId', (req, res, next) => {
     Book.findById(req.params.bookId, function(err, book){
         if (err){
@@ -91,7 +77,7 @@ bookRouter.route('/Books/:bookId')
                 res.json(req.book);
             }
         });
-    });
+    })
     .delete(function(req, res) {
         req.bok.remove( (err) => {
             if(err) {
